@@ -8,7 +8,7 @@ const isValid = function (value) {
  }
 
 
- const createCollege = async (req, res)=> {
+ const colleges = async (req, res)=> {
      try {
          let data = req.body
          if (Object.keys(data) == 0){return res.status(400).send({ status: false, msg: "Bad request, No data provided." })};
@@ -43,7 +43,7 @@ const isValid = function (value) {
      }
  }
 
- const getInternListOfCollege = async (req, res)=> {
+ const collegeDetails = async (req, res)=> {
     try {
          const collegeName = req.query.collegeName
 
@@ -79,5 +79,5 @@ const isValid = function (value) {
     }
 }
 
-module.exports.createCollege = createCollege;
-module.exports.getInternListOfCollege = getInternListOfCollege;
+module.exports.colleges = colleges;
+module.exports.collegeDetails = collegeDetails;

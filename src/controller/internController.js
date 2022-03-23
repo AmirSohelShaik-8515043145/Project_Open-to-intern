@@ -9,7 +9,7 @@ const isValid = function (value) {
  }
 
 
-const internCreate = async (req, res)=> {
+const intern = async (req, res)=> {
      try {
           let data = req.body
           if (Object.keys(data) == 0){return res.status(400).send({ status: false, msg: "Bad request, No data provided." })};
@@ -61,5 +61,5 @@ const internCreate = async (req, res)=> {
   };
 
 
- module.exports.internCreate = internCreate;
+ module.exports.intern = intern;
  
