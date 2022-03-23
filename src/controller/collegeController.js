@@ -1,4 +1,5 @@
 const collegeModel = require('../model/collegeModel')
+const internModel=require('../model/internModel')
 
 const isValid = function (value) {
      if (typeof (value) === 'undefined' || typeof (value) === null) { return false }
@@ -42,4 +43,41 @@ const isValid = function (value) {
      }
  }
 
+ const getInternList = async (req, res)=> {
+    try {
+         const collegeName = req.query.collegeName
+
+        // Required CollegeName in Query :
+        if (!collegeName) {
+             return res.status(400).send({ status: false, msg: 'collegeName required' })
+         }
+
+         // Checking College Details according to given query :
+         let collegeDetails = await collegeModel.findOne({ name: collegeName , isDeleted: false })
+         if (!collegeDetails){
+              return res.status(400).send({ status: false, msg: 'college name not in the dataBase' })
+         }
+
+         // Finding Intern details with his/her college :
+         let internDetails = await internModel.find({ collegeId: collegeDetails._id, isDeleted: false }).select({ _id: 1, name: 1, email: 1, mobile: 1 })
+         
+         let result = {
+            name: collegeDetails.name,
+            fullName: collegeDetails.fullName,
+            logoLink: collegeDetails.logoLink,
+            intern: internDetails
+        }
+         
+        if (internDetails.length === 0) {
+            return res.status(201).send({ status: true, result, msg: 'intern Details not present' })
+        }else{
+            res.status(200).send({status: true, data: result})
+        }
+    }
+    catch(error){
+         res.status().send({status:false,msg:error})
+    }
+}
+
 module.exports.createCollege = createCollege;
+module.exports.getInternList=getInternList;

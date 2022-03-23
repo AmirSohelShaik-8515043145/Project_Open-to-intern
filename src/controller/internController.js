@@ -3,7 +3,7 @@ const collegeModel = require('../model/collegeModel')
 
 
 const isValid = function (value) {
-     if (typeof (value) === 'undefined' || typeof (value) === null) { return false }
+     if (typeof (value) === "undefined" || typeof (value) === null) { return false }
      if (typeof (value).trim().length == 0) { return false }
      if (typeof (value) === "string" && (value).trim().length > 0){ return true }
  }
@@ -28,7 +28,7 @@ const internCreate = async (req, res)=> {
           }
 
           // For email unique true:
-          let duplicateEmail  = await internModel.findOne({name:data.email})
+          let duplicateEmail  = await internModel.findOne({email:data.email})
           if(duplicateEmail){return res.status(400).send({ status:false, msg: "email already exists"})}
 
           // For Mobile No. required true:
@@ -40,7 +40,7 @@ const internCreate = async (req, res)=> {
           }
 
           // For Mobile No. unique true:
-          let duplicateMobile  = await internModel.findOne({name:data.mobile})
+          let duplicateMobile  = await internModel.findOne({mobile:data.mobile})
           if(duplicateMobile){return res.status(400).send({ status:false, msg: "Mobile number already exists"})}
 
           // Checking college id :
@@ -55,37 +55,11 @@ const internCreate = async (req, res)=> {
           const createIntern = await internModel.create(data);
           res.status(201).send({ status: true, message: "Intern is enrolled successfully", data: createIntern })
     }
-
     catch (error) {
          res.status(500).send({ status: false, msg: error.message })
     }
   };
 
 
-  const getInternList = async (req, res)=> {
-     try {
-          const collegeName = req.query.collegeName
-
-         // Required CollegeName in Query :
-         if (!collegeName) {
-              return res.status(400).send({ status: false, msg: 'collegeName required' })
-          }
-
-          // Checking College Details according to given query :
-          let collegeDetails = await collegeModel.findOne({ name: collegeName , isDeleted: false })
-          if (!collegeDetails){
-               return res.status(400).send({ status: false, msg: 'college name not in the dataBase' })
-          }
-
-          // Finding Intern details with his/her college :
-          let internDetails = await internModel.find({ collegeId: collegeDetails._id, isDeleted: false }).populate("collegeId")
-          if (internDetails.length == 0) return res.status(404).send({ status: false, msg: "No intern Available." })
-          return res.status(200).send({ status: true,count:internDetails.length, data: internDetails });
-     }
-     catch(error){
-          res.status().send({status:false,msg:error})
-     }
-}
-
  module.exports.internCreate = internCreate;
- module.exports.getInternList = getInternList;
+ 
