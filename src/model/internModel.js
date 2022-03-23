@@ -15,12 +15,7 @@ const internSchema = new mongoose.Schema({
         trim: true,
         lowercase: true,
         unique: true,
-        required: "Email address is required",
-        validate:{
-            validator: validator.isEmail,
-            message: "Value is not a valid email",
-            isAsync: false
-        }
+        required: true,
     },
     mobile:{
         type:String,
@@ -37,7 +32,7 @@ const internSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     }
-},{ timestamps: true} )
+},{ timestamps: true})
 
 module.exports = mongoose.model("Project2_interns", internSchema)
 

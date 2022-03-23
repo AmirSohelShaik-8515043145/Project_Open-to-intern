@@ -1,12 +1,6 @@
 const internModel = require("../model/internModel")
 const collegeModel = require('../model/collegeModel')
-
-
-const isValid = function (value) {
-     if (typeof (value) === "undefined" || typeof (value) === null) { return false }
-     if (typeof (value).trim().length == 0) { return false }
-     if (typeof (value) === "string" && (value).trim().length > 0){ return true }
- }
+const validator=require('../validator/validator')
 
 
 const intern = async (req, res)=> {
@@ -17,10 +11,10 @@ const intern = async (req, res)=> {
           const{ name, email, mobile, collegeId, isDeleted} = data
 
           // For name required true:
-          if (!isValid(name)){ return res.status(400).send({ status: false, msg: "Intern name is required" }) }
+          if (!validator.isValid(name)){ return res.status(400).send({ status: false, msg: "Intern name is required" }) }
 
           // For email required true:
-          if (!isValid(email)){ return res.status(400).send({ status: false, msg: "email is required" })}
+          if (!validator.isValid(email)){ return res.status(400).send({ status: false, msg: "email is required" })}
 
           // For a valid email:
           if (!(/^\w+([\.-]?\w+)@\w+([\. -]?\w+)(\.\w{2,3})+$/.test(data.email))){
@@ -32,7 +26,7 @@ const intern = async (req, res)=> {
           if(duplicateEmail){return res.status(400).send({ status:false, msg: "email already exists"})}
 
           // For Mobile No. required true:
-          if (!isValid(mobile)){ return res.status(400).send({ status: false, msg: "Mobile No. is required" })}
+          if (!validator.isValid(mobile)){ return res.status(400).send({ status: false, msg: "Mobile No. is required" })}
 
           // For a valid Mobile No.:
           if (!(/^([+]\d{2})?\d{10}$/.test(data.mobile))){
@@ -44,7 +38,7 @@ const intern = async (req, res)=> {
           if(duplicateMobile){return res.status(400).send({ status:false, msg: "Mobile number already exists"})}
 
           // Checking college id :
-          let id = req.body.collegeId
+          let id = collegeId
           if(!id){ return res.status(404).send({status:false, msg:"Collegeid should be in the body."})}
 
           // Finding college according to college Id :
