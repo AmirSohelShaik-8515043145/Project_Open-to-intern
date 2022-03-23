@@ -53,18 +53,18 @@ const isValid = function (value) {
          }
 
          // Checking College Details according to given query :
-         let collegeDetails = await collegeModel.findOne({ name: collegeName , isDeleted: false })
-         if (!collegeDetails){
+         let collegeDetail = await collegeModel.findOne({ name: collegeName , isDeleted: false })
+         if (!collegeDetail){
               return res.status(400).send({ status: false, msg: 'college name not in the dataBase' })
          }
 
          // Finding all interns of any particuler college
-         let internDetails = await internModel.find({ collegeId: collegeDetails._id, isDeleted: false }).select({ _id: 1, name: 1, email: 1, mobile: 1 })
+         let internDetails = await internModel.find({ collegeId: collegeDetail._id, isDeleted: false }).select({ _id: 1, name: 1, email: 1, mobile: 1 })
          
          let result = {
-            name: collegeDetails.name,
-            fullName: collegeDetails.fullName,
-            logoLink: collegeDetails.logoLink,
+            name: collegeDetail.name,
+            fullName: collegeDetail.fullName,
+            logoLink: collegeDetail.logoLink,
             intern: internDetails
         }
          
