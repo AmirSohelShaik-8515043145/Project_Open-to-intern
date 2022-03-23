@@ -43,7 +43,7 @@ const isValid = function (value) {
      }
  }
 
- const getInternList = async (req, res)=> {
+ const getInternListOfCollege = async (req, res)=> {
     try {
          const collegeName = req.query.collegeName
 
@@ -58,7 +58,7 @@ const isValid = function (value) {
               return res.status(400).send({ status: false, msg: 'college name not in the dataBase' })
          }
 
-         // Finding Intern details with his/her college :
+         // Finding all interns of any particuler college
          let internDetails = await internModel.find({ collegeId: collegeDetails._id, isDeleted: false }).select({ _id: 1, name: 1, email: 1, mobile: 1 })
          
          let result = {
@@ -80,4 +80,4 @@ const isValid = function (value) {
 }
 
 module.exports.createCollege = createCollege;
-module.exports.getInternList=getInternList;
+module.exports.getInternListOfCollege = getInternListOfCollege;
