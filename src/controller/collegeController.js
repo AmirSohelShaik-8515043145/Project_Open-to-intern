@@ -57,7 +57,7 @@ const validator=require('../validator/validator')
          let internDetails = await internModel.find({ collegeId: collegeDetail._id, isDeleted: false }).select({ _id: 1, name: 1, email: 1, mobile: 1 })
          
         if (internDetails.length === 0) {
-            return res.status(201).send({ status: true, result, msg: 'intern Details not present' })
+            return res.status(201).send({ status: true, msg: 'There is no intern in this college' })
         }else{
             let result = {
                 name: collegeDetail.name,
@@ -65,10 +65,11 @@ const validator=require('../validator/validator')
                 logoLink: collegeDetail.logoLink,
                 interests: internDetails
             }
-            res.status(200).send({status: true, data: result})
+            res.status(200).send({status: true, count :"Total interns present in this college : "+internDetails.length, data: result})
         }
     }
     catch(error){
+        console.log(error)
          res.status(500).send({status:false,msg:error.message})
     }
 }
