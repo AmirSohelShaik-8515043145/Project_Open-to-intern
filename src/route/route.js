@@ -1,12 +1,12 @@
 const express = require("express")
 const router = express.Router()
 
-const collegeController = require("../controller/collegeController")
-const internController = require("../controller/internController")
+const {colleges,collegeDetails} = require("../controller/collegeController")
+const {intern} = require("../controller/internController")
 
-router.post("/functionup/colleges", collegeController.colleges)
-router.post("/functionup/intern", internController.intern)
-router.get("/functionup/collegeDetails", collegeController.collegeDetails)
+router.post("/functionup/colleges", colleges)
+router.post("/functionup/intern", intern)
+router.get("/functionup/collegeDetails", collegeDetails)
 
 
 module.exports = router

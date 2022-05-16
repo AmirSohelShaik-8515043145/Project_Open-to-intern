@@ -16,11 +16,11 @@ mongoose.connect("mongodb+srv://amir-thorium:NSE7ZdUlu4no9WRF@cluster0.gchuo.mon
 
 
 
-app.use('/', route);
+app.use(route);
 
 
-app.listen(process.env.PORT || 3000, function () {
-    console.log('Express app running on port ' + (process.env.PORT || 3000))
+app.listen(3000, function () {
+    console.log('Express app running on port 3000')
 });
 
 

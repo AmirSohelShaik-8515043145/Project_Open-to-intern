@@ -58,7 +58,8 @@ const validator=require('../validator/validator')
          
         if (internDetails.length === 0) {
             return res.status(201).send({ status: true, msg: 'There is no intern in this college' })
-        }else{
+        }
+        else{
             let result = {
                 name: collegeDetail.name,
                 fullName: collegeDetail.fullName,
@@ -70,7 +71,7 @@ const validator=require('../validator/validator')
     }
     catch(error){
         console.log(error)
-         res.status(500).send({status:false,msg:error.message})
+        res.status(500).send({status:false,msg:error.message})
     }
 }
 
